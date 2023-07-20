@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import React from "react";
 import App from "./App";
 
-export const initialize = () => {
+const initialize = () => {
   const shadowHost = document.createElement("apollo-appsync");
   shadowHost.setAttribute("id", "apollo-appsync");
   const shadowRoot = shadowHost.attachShadow({ mode: "open" });
@@ -14,3 +14,5 @@ export const initialize = () => {
 
   createRoot(shadowRoot).render(<App />);
 };
+
+initialize();

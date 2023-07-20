@@ -38,6 +38,6 @@ chrome.action.onClicked.addListener((tab) => {
   console.log({ tab: tab.id });
   chrome.scripting.executeScript({
     target: { tabId: tab.id as number },
-    files: ["content-script.js"],
+    files: ["import-index.js"],
   });
 });
