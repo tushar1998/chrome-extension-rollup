@@ -6,7 +6,8 @@ import replace from "@rollup/plugin-replace";
 import json from "@rollup/plugin-json";
 import del from "rollup-plugin-delete";
 import nodePolyfill from "rollup-plugin-polyfill-node";
-import { RollupOptions } from "rollup";
+import { RollupOptions, InputPluginOption } from "rollup";
+import { chromeExtension, simpleReloader } from "rollup-plugin-chrome-extension";
 
 const input = {
   "service-worker": "./src/service-worker.ts",
@@ -15,27 +16,28 @@ const input = {
 };
 
 const config: RollupOptions = {
-  input,
+  input: "./src/manifest.json",
   output: {
     format: "esm",
-    dir: "dist",
-    chunkFileNames: `ext-[name]-[hash].js`,
+    dir: "lib",
   },
   plugins: [
+    chromeExtension() as unknown as InputPluginOption,
+    simpleReloader() as unknown as InputPluginOption,
     del({
-      targets: ["./lib/*", "./dist/*"],
+      targets: ["./lib/*"],
       // runOnce: true,
     }),
-    copy({
-      targets: [
-        { src: "src/manifest.json", dest: "dist" },
-        { src: "src/assets", dest: "dist" },
-      ],
-    }),
-    replace({
-      "process.env.NODE_ENV": "String('development')",
-      preventAssignment: false,
-    }),
+    // copy({
+    //   targets: [
+    //     { src: "src/manifest.json", dest: "dist" },
+    //     { src: "src/assets", dest: "dist" },
+    //   ],
+    // }),
+    // replace({
+    //   "process.env.NODE_ENV": "String('development')",
+    //   preventAssignment: false,
+    // }),
     commonjs(),
     resolve(),
     json(),
