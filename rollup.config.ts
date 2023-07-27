@@ -10,7 +10,6 @@ import { RollupOptions } from "rollup";
 
 const input = {
   "service-worker": "./src/service-worker.ts",
-  "content-script": "./src/content-script.ts",
   index: "./src/index.tsx",
 };
 
@@ -19,7 +18,7 @@ const config: RollupOptions = {
   output: {
     format: "esm",
     dir: "dist",
-    chunkFileNames: `ext-[name]-[hash].js`,
+    chunkFileNames: `chunks/[name]-[hash].js`,
   },
   plugins: [
     del({
@@ -30,6 +29,7 @@ const config: RollupOptions = {
       targets: [
         { src: "src/manifest.json", dest: "dist" },
         { src: "src/assets", dest: "dist" },
+        { src: "src/public/**", dest: "dist" },
       ],
     }),
     replace({

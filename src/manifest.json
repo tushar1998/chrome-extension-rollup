@@ -10,15 +10,13 @@
   "icons": {
     "128": "assets/icon-128.png"
   },
-  "content_scripts": [{ "js": ["content-script.js"], "matches": ["<all_urls>"] }],
-  "permissions": ["storage", "activeTab", "scripting"],
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "permissions": ["storage", "activeTab", "scripting", "sidePanel"],
   "web_accessible_resources": [
     {
       "resources": ["assets/*"],
-      "matches": ["<all_urls>"]
-    },
-    {
-      "resources": ["index.js", "ext*.js"],
       "matches": ["<all_urls>"]
     }
   ]
